@@ -1,0 +1,7 @@
+{
+  "name": "@pax4nimi/vue-ip-mac-mask",
+  "version": "1.0.1",
+  "license": "MIT",
+  "exports": "./src/index.js"
+}
+
