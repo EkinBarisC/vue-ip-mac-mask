@@ -1,6 +1,6 @@
 {
   "name": "vue-ip-mac-mask",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Vue 3 directive for IPv4, IPv6, and MAC address input masking with validation",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
@@ -39,7 +39,11 @@
   },
   "repository": {
     "type": "git",
-    "url": ""
+    "url": "git+https://github.com/EkinBarisC/vue-ip-mac-mask.git"
+  },
+  "homepage": "https://github.com/EkinBarisC/vue-ip-mac-mask#readme",
+  "bugs": {
+    "url": "https://github.com/EkinBarisC/vue-ip-mac-mask/issues"
   }
 }
 
