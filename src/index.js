@@ -1,3 +1,5 @@
+/* @ts-self-types="./index.d.ts" */
+
 /**
  * Simulates inserting a character at a specific position in a string
  * @param {string} value - The original string value
