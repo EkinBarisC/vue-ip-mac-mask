@@ -1,7 +1,13 @@
 {
   "name": "@pax4nimi/vue-ip-mac-mask",
-  "version": "1.0.1",
+  "version": "1.0.5",
+  "description": "Vue 3 directive for IPv4, IPv6, and MAC address input masking with validation",
   "license": "MIT",
-  "exports": "./src/index.js"
+  "exports": "./src/index.js",
+  "compatibleRuntimes": {
+    "browser": true,
+    "node": true,
+    "deno": true
+  }
 }
 
