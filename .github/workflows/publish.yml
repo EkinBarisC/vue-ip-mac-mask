@@ -33,3 +33,8 @@ jobs:
       env:
         NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
+    - name: Publish to JSR
+      run: npx jsr publish --provenance
+      env:
+        NPM_CONFIG_PROVENANCE: true
+
