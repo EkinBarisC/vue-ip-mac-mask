@@ -1,6 +1,6 @@
 {
   "name": "vue-ip-mac-mask",
-  "version": "1.0.2",
+  "version": "1.0.4",
   "description": "Vue 3 directive for IPv4, IPv6, and MAC address input masking with validation",
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",

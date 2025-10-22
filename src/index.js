@@ -1,9 +1,23 @@
-
+/**
+ * Simulates inserting a character at a specific position in a string
+ * @param {string} value - The original string value
+ * @param {string} char - The character to insert
+ * @param {number} cursorPos - The cursor position where to insert
+ * @param {number} [selectionEnd] - The end of selection (optional)
+ * @returns {string} The resulting string after insertion
+ */
 const simulateInsert = (value, char, cursorPos, selectionEnd) => {
   const selEnd = typeof selectionEnd === 'number' ? selectionEnd : cursorPos
   return value.slice(0, cursorPos) + char + value.slice(selEnd)
 }
 
+/**
+ * Gets the start and end bounds of a segment in a delimited string
+ * @param {string} value - The string to analyze
+ * @param {number} index - The index within the segment
+ * @param {string} delimiter - The delimiter character
+ * @returns {{start: number, end: number}} The start and end indices of the segment
+ */
 const getSegmentBounds = (value, index, delimiter) => {
   const start = value.lastIndexOf(delimiter, index - 1) + 1
   let end = value.indexOf(delimiter, index)
@@ -11,19 +25,50 @@ const getSegmentBounds = (value, index, delimiter) => {
   return { start, end }
 }
 
+/**
+ * Extracts the text of a segment at a specific index
+ * @param {string} value - The string to analyze
+ * @param {number} index - The index within the segment
+ * @param {string} delimiter - The delimiter character
+ * @returns {string} The segment text
+ */
 const getSegmentTextAt = (value, index, delimiter) => {
   const { start, end } = getSegmentBounds(value, index, delimiter)
   return value.slice(start, end)
 }
 
+/**
+ * Counts the occurrences of a character in a string
+ * @param {string} value - The string to search
+ * @param {string} ch - The character to count
+ * @returns {number} The number of occurrences
+ */
 const countChar = (value, ch) => {
   const m = value.match(new RegExp('\\' + ch, 'g'))
   return m ? m.length : 0
 }
 
+/**
+ * Checks if a character is a valid hexadecimal digit
+ * @param {string} ch - The character to check
+ * @returns {boolean} True if the character is a hex digit
+ */
 const isHexChar = (ch) => /[0-9a-fA-F]/.test(ch)
+
+/**
+ * Checks if a character is a decimal digit
+ * @param {string} ch - The character to check
+ * @returns {boolean} True if the character is a digit
+ */
 const isDigit = (ch) => /\d/.test(ch)
 
+/**
+ * Computes the new cursor position after a value change
+ * @param {string} oldValue - The previous value
+ * @param {string} newValue - The new value
+ * @param {number} oldCursor - The previous cursor position
+ * @returns {number} The new cursor position
+ */
 const computeNewCursorPosition = (oldValue, newValue, oldCursor) => {
   let pos = oldCursor
   if (newValue.length < oldValue.length) {
@@ -34,6 +79,17 @@ const computeNewCursorPosition = (oldValue, newValue, oldCursor) => {
   return pos
 }
 
+/**
+ * @typedef {Object} MaskHandler
+ * @property {(value: string) => string} format - Formats the input value
+ * @property {(value: string) => boolean} validate - Validates the input value
+ * @property {(char: string, currentValue: string, cursorPos: number, selectionEnd: number) => boolean} isValidChar - Checks if a character is valid at the current position
+ */
+
+/**
+ * Handlers for different mask types (IPv4, IPv6, MAC)
+ * @type {Object.<string, MaskHandler>}
+ */
 const maskHandlers = {
   ipv4: {
     format: (value) => {
@@ -199,6 +255,34 @@ const maskHandlers = {
   }
 }
 
+/**
+ * Vue IP & MAC Address Mask Plugin
+ * 
+ * A Vue 3 plugin that provides input masking and validation directives for IPv4, IPv6, and MAC addresses.
+ * 
+ * @example
+ * ```javascript
+ * import { createApp } from 'vue'
+ * import VueIpMacMask from 'vue-ip-mac-mask'
+ * 
+ * const app = createApp(App)
+ * app.use(VueIpMacMask)
+ * ```
+ * 
+ * @example
+ * ```vue
+ * <!-- IPv4 Address -->
+ * <input v-model="ipv4" v-mask:ipv4 type="text" placeholder="192.168.1.1" />
+ * 
+ * <!-- IPv6 Address -->
+ * <input v-model="ipv6" v-mask:ipv6 type="text" placeholder="2001:0db8::1" />
+ * 
+ * <!-- MAC Address -->
+ * <input v-model="mac" v-mask:mac type="text" placeholder="00:1A:2B:3C:4D:5E" />
+ * ```
+ * 
+ * @type {{install: (app: any) => void}}
+ */
 export default {
   install: (app) => {
     app.directive('mask', {
